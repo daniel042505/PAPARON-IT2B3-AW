@@ -40,7 +40,7 @@ public class IT2BPAPARONPUROK {
             else{
                      System.out.println("Invalid choice, please try again.");
                     }
-        } while (cho != 3);
+        } while (cho != 4);
 
         sc.close();
     }

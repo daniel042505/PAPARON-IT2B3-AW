@@ -57,7 +57,7 @@ public class attendance {
         int memberId = sc.nextInt();
         sc.nextLine(); 
         
-        System.out.print("Enter Activity ID: ");
+        System.out.print("Enter Attendance ID: ");
         int activityId = sc.nextInt();
         sc.nextLine(); 
         
@@ -72,17 +72,26 @@ public class attendance {
 }
 
 
-   private static void viewAllAttendance(Scanner sc) {
-    String sqlQuery = "SELECT * FROM tbl_attendance "
-                    + "JOIN tbl_members ON tbl_attendance.a_id = tbl_members.s_hid "
+  private static void viewAllAttendance(Scanner sc) {
+    String sqlQuery = "SELECT tbl_attendance.s_id AS 'Attendance ID', "
+                    + "tbl_members.s_fname AS 'First Name', "
+                    + "tbl_members.s_lastname AS 'Last Name', "
+                    + "tbl_activities.s_name AS 'Activity Name', "
+                    + "tbl_activities.s_loc AS 'Location', "
+                    + "tbl_activities.s_date AS 'Date', "
+                    + "tbl_attendance.s_status AS 'Status' "
+                    + "FROM tbl_attendance "
+                    + "JOIN tbl_members ON tbl_attendance.s_hid = tbl_members.s_hid "
                     + "JOIN tbl_activities ON tbl_attendance.a_id = tbl_activities.s_id";
 
-    String[] attendanceHeaders = {"Attendance ID", "First Name", "Last Name", "Date", "Status"};
-    String[] attendanceColumns = {"a_id", "s_fname", "s_lastname", "s_date", "s_status"};
+    String[] attendanceHeaders = {"Attendance ID", "First Name", "Last Name", "Activity Name", "Location", "Date", "Status"};
+    String[] attendanceColumns = {"Attendance ID", "First Name", "Last Name", "Activity Name", "Location", "Date", "Status"};
 
     config conf = new config();
     conf.viewRecords(sqlQuery, attendanceHeaders, attendanceColumns);
 }
+
+
 
 
     private static void updateAttendance(Scanner sc) {
@@ -94,8 +103,8 @@ public class attendance {
         System.out.print("Enter new Location: ");
         String location = sc.nextLine();
 
-        String qry = "UPDATE tbl_attendance "
-                   + "SET a_name = ?, location = ? "
+        String qry = "UPDATE tbl_activities "
+                   + "SET s_name = ?, s_loc= ? "
                    + "WHERE s_id = ?";
         config conf = new config();
         conf.updateRecord(qry, activityName, location, id);
